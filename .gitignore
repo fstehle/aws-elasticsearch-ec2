@@ -1,5 +1,7 @@
 .idea/
 .terraform/
 terraform
-inventory
+ansible/ansible-galaxy-roles
+ansible/inventory
+ansible/roles/elasticsearch/
 venv/
