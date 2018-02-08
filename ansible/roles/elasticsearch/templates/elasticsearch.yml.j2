@@ -1,0 +1,28 @@
+cluster.name: "test-cluster"
+node.name: "{{ ansible_local.ec2.tags.name }}"
+
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+
+network.bind_host: _local_,_ec2_
+network.publish_host: _ec2_
+discovery.zen.hosts_provider: ec2
+discovery.ec2.tag.Role: elasticsearch
+discovery.ec2.endpoint: ec2.eu-west-1.amazonaws.com
+
+http.port: 9200
+transport.tcp.port: 9300
+
+bootstrap.memory_lock: false
+
+cloud.node.auto_attributes: true
+cluster.routing.allocation.awareness.attributes: aws_availability_zone
+
+{% if es_master %}
+node.master: true
+node.data: false
+{% else %}
+node.master: false
+node.data: true
+{% endif %}
+

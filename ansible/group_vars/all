@@ -1,2 +1,6 @@
 ---
 ansible_user: ubuntu
+ansible_become: true
+
+kibana_user: admin
+kibana_password: admin

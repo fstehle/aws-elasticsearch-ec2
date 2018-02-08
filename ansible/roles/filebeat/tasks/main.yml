@@ -1,0 +1,43 @@
+---
+#
+# Installing Filebeat
+#
+
+# Add Kibana APT-repository
+- name: Adding Filebeat APT repository
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main
+    state: present
+
+# Install Filebeat
+- name: Update repositories cache and install Kibana
+  apt:
+    name: filebeat
+    update_cache: yes
+
+- copy:
+    src: filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+    owner: root
+    group: root
+    mode: 0644
+
+- copy:
+    src: system.yml
+    dest: /etc/filebeat/modules.d/system.yml
+    owner: root
+    group: root
+    mode: 0644
+
+# Enable Filebeat service
+- name: Enabling Filebeat service
+  systemd:
+    name: filebeat
+    enabled: yes
+    daemon_reload: yes
+
+# Start Filebeat service
+- name: Starting Filebeat service
+  systemd:
+    name: filebeat
+    state: started

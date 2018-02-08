@@ -1,0 +1,7 @@
+- module: system
+  # Syslog
+  syslog:
+    enabled: true
+  # Authorization logs
+  auth:
+    enabled: true
